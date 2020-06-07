@@ -1,8 +1,8 @@
 const express = require('express');
 const app = express();
 
-app.get('/', (req, res, next) => {
-    res.send('Welcome to Tournament Creator! :)');
-});
+const router = require('.//routes/creator.js');
+
+app.use('/', router);
 
 app.listen(3000);
