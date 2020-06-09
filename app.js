@@ -1,8 +1,17 @@
 const express = require('express');
 const app = express();
 
-const router = require('.//routes/creator.js');
+const path = require('path');
 
-app.use('/', router);
+const homeRouter = require('.//routes/home.js');
+const creatorRouter = require('.//routes/creator.js');
+
+
+app.set('view engine', 'ejs');
+app.use(express.static(path.join(__dirname, 'public')));
+
+
+app.use('/', homeRouter);
+app.use('/', creatorRouter);
 
 app.listen(3000);
