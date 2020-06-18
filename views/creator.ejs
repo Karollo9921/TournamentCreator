@@ -1,7 +1,25 @@
 <%- include('includes/start.ejs') %>
 
+<title><%=title%></title>
+</head>
+<body>
+
     <%- include('includes/navbar.ejs') %>
+    <div class="container">
     <p>Here you can create your Tournament!</p>
+    <form class="form" action="/creator" method="POST">
+        <label>Discypline:</label><br>
+        <input type="text" name="discipline" placeholder="E.G. Chess"><br><br>
+        <label for="lname">Tournament type:</label><br>
+        <select name="type">
+            <option value="Bracket Tournament">Bracket Tournament</option>
+            <option value="League Tournament">League Tournament</option>
+        </select><br><br>
+        <label>Description of Tournament:</label><br>
+        <textarea name="description" rows="4" cols="50"></textarea><br><br>
+        <input type="submit" value="Submit"><br>
+      </form> 
 
 
 <%- include('includes/end.ejs') %>
+    </div>

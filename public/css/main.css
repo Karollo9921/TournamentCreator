@@ -7,6 +7,10 @@ body {
     padding: 0;
 }
 
+.container {
+    margin: .5rem
+}
+
 .navbar {
     display: flex;
     justify-content: space-between;
