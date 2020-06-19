@@ -17,7 +17,7 @@ router.get('/creator', (req, res, next) => {
 router.post('/creator', (req, res, next) => {
     const tournament = new Tournament(req.body.discipline, req.body.type, req.body.description);
     tournaments.push(tournament);
-    console.log(tournaments);
+    // console.log(tournaments);
     res.render('../views/success.ejs', {
         title: "SUCCESS ! ;)"
     });

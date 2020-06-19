@@ -3,12 +3,13 @@ const router = express.Router();
 
 const tournaments = require('./creator.js').tournaments;
 
+
 router.get('/', (req, res, next) => {
     res.render('../views/home.ejs', {
-        title: "Welcome! :)"
+        title: "Welcome! :)",
+        tournaments: tournaments
     });
-    console.log(tournaments[0].type);
-    
 });
+
 
 module.exports = router;
