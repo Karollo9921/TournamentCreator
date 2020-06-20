@@ -1,10 +1,10 @@
-const tournaments = require('./tournament').tournaments;
-
+const Tournament = require('../models/tournament.js');
 
 exports.getHomePage = (req, res, next) => {
-    res.render('../views/home.ejs', {
-        title: "Welcome! :)",
-        tournaments: tournaments
-    });
+    Tournament.displayFromJSON((tournaments) => {
+        res.render('../views/home.ejs', {
+            title: "Welcome! :)",
+            tournaments: tournaments
+        })
+    });   
 };
-
