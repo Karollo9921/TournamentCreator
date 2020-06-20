@@ -4,10 +4,8 @@ const app = express();
 const path = require('path');
 
 const homeRouter = require('.//routes/home.js');
-const creatorRouter = require('.//routes/creator.js').router;
-const tournamentRouter = require('.//routes/tournament.js').router;
-
-
+const creatorRouter = require('.//routes/creator.js');
+const tournamentRouter = require('.//routes/tournament.js');
 
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));

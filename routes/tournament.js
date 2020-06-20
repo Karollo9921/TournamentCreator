@@ -1,15 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const tournaments = require('./creator.js').tournaments;
+const tournamentController = require('../controllers/tournament.js');
 
+router.get('/tournaments/:id', tournamentController.getTournament);
 
-router.get('/tournaments/:id', (req, res, next) => {
-    let tour = tournaments.find((item) => {return item.id == req.params.id});
-    res.render('../views/tournament.ejs', {
-        title: tour.discipline
-    });
-});
-
-
-exports.router = router;
+module.exports = router;

@@ -1,33 +1,13 @@
 const express = require('express');
 const router = express.Router();
 
+const tournamentController = require('../controllers/tournament.js');
+
 const bodyParser = require('body-parser');
 router.use(bodyParser.urlencoded({extended: false}));
 router.use(bodyParser.json());
 
-const Tournament = require('../models/tournament.js')
-const tournaments = [];
+router.get('/creator', tournamentController.getCreateTournament);
+router.post('/creator', tournamentController.postCreateTournament);
 
-router.get('/creator', (req, res, next) => {
-    res.render('../views/creator.ejs', {
-        title: "Create Tournament"
-    });
-});
-
-router.post('/creator', (req, res, next) => {
-    const tournament = new Tournament(req.body.discipline, req.body.type, req.body.description);
-    tournaments.push(tournament);
-    let id = tournament.id;
-    // console.log(tournaments);
-    res.render('../views/success.ejs', {
-        title: "SUCCESS ! ;)",
-        id: id
-    });
-    return;
-    
-});
-
-exports.router = router;
-exports.tournaments = tournaments;
-
-
+module.exports = router;

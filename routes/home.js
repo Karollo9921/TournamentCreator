@@ -1,15 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const tournaments = require('./creator.js').tournaments;
+const homeController = require('../controllers/homePage.js');
 
-
-router.get('/', (req, res, next) => {
-    res.render('../views/home.ejs', {
-        title: "Welcome! :)",
-        tournaments: tournaments
-    });
-});
-
+router.get('/', homeController.getHomePage);
 
 module.exports = router;
