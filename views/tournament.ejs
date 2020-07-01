@@ -1,12 +1,17 @@
 <%- include('includes/start.ejs') %>
 
+<link rel="stylesheet" href="/css/tournament.css">
 <title><%=title%></title>
 </head>
 <body>
 
     <%- include('includes/navbar.ejs') %>
-    <p>Congratulations! Your <%=title%> Tournament has been created! :)</p>
-
+    <div class="container">
+        <p>Congratulations! Your <%=title%> Tournament has been created! :)
+            <a href="/creator-edit/<%=tournament.id%>" class="button">Edit</a>
+            <input class="button" type="submit" value="Delete" action="/succes-deleted" method="POST">
+        </p>    
+    </div>
 
 
 <%- include('includes/end.ejs') %>

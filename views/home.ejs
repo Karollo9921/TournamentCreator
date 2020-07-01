@@ -11,10 +11,13 @@
         <div class="tours">
             <% if (tournaments.length > 0) { %>
                 <% for (let tournament of tournaments.reverse()) { %>
-                    <article>
+                    <article id="<%=tournament.id%>">
                         <hr>
-                        <div id="<%=tournament.id%>">
-                            <p>Here is a Tournament <a href="/tournaments/<%=tournament.id%>"><%=tournament.id%></a> and it was created <%=tournament.date%> </p>
+                        <div id="tour">
+                            <p>Here is a Tournament <a href="/tournaments/<%=tournament.id%>"><%=tournament.id%></a> and it was created <%=tournament.date%>
+                                <a href="/creator-edit/<%=tournament.id%>" class="button">Edit</a>
+                                <input class="button" type="submit" value="Delete">
+                            </p>
                         </div>
                         <hr>
                     </article>

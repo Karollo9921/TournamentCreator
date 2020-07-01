@@ -95,3 +95,41 @@ body {
         display: flex;
     }
 }
+
+
+.button {
+    margin: .5rem;
+    outline: none;
+    color: #F7FFE0;
+    background-color: #514B23;
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 3px;
+    padding: 1px 8px;
+}
+
+#edit-button {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+}
+
+#delete-button {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+}
+
+.button:hover {
+    background-color: #258EA6;
+  }
+
+.tour {
+    background-color: #E2B1B1;
+    position: relative;
+}
+
+p {
+    margin: .5rem;
+}

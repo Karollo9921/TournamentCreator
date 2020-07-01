@@ -6,6 +6,7 @@ exports.getCreateTournament = (req, res, next) => {
     });
 };
 
+
 exports.postCreateTournament = (req, res, next) => {
     const tournament = new Tournament(req.body.discipline, req.body.type, req.body.description);
     tournament.saveToJSON();
@@ -18,11 +19,69 @@ exports.postCreateTournament = (req, res, next) => {
     return;
 };
 
+
 exports.getTournament = (req, res, next) => {
     Tournament.displayFromJSON((tournaments) => {
         let tour = tournaments.find((item) => {return item.id == req.params.id});
         res.render('../views/tournament.ejs', {
-            title: tour.discipline
+            title: tour.discipline,
+            tournament: tour
         });        
     })
 };
+
+
+exports.getEditTournament = (req, res, next) => {
+    Tournament.displayFromJSON((tournaments) => {
+        let tour = tournaments.find((tours) => {return tours.id == req.params.id});
+        res.render('../views/creator-edit.ejs', {
+            title: "Edit Tournament",
+            id: tour.id,
+            discipline: tour.discipline,
+            type: tour.type,
+            description: tour.description
+        });
+    })
+        
+};
+
+exports.putEditTournament = async (req, res, next) => {
+    let editedTournaments;
+    try {
+        editedTournaments = await Tournament.editTour(req.params.id, req.body.discipline, req.body.type, req.body.description);
+        console.log(editedTournaments);
+        if (editedTournaments == []) {
+            res.redirect('/');
+        } else {
+            await Tournament.writeData(editedTournaments);
+            await Tournament.displayFromJSON((tournaments) => {
+                res.render('../views/home.ejs', {
+                    title: "Welcome! :)",
+                    tournaments: tournaments
+                })
+            });            
+        }
+    } catch {
+        if (editedTournaments == null) {
+            res.redirect('/')
+        } else {
+            let tour = tournaments.find((tours) => {return tours.id == req.params.id});
+            res.render('../views/creator-edit.ejs', {
+                title: "Edit Tournament",
+                id: tour.id,
+                discipline: tour.discipline,
+                type: tour.type,
+                description: tour.description
+            });
+        }
+    }
+      
+};
+
+exports.deleteTournament = (req, res, next) => {
+
+};
+
+
+
+ 

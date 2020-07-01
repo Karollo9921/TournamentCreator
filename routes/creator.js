@@ -10,4 +10,6 @@ router.use(bodyParser.json());
 router.get('/creator', tournamentController.getCreateTournament);
 router.post('/creator', tournamentController.postCreateTournament);
 
+router.get('/creator-edit/:id', tournamentController.getEditTournament);
+
 module.exports = router;

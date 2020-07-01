@@ -6,5 +6,5 @@ exports.getHomePage = (req, res, next) => {
             title: "Welcome! :)",
             tournaments: tournaments
         })
-    });   
-};
+    });  
+};  
