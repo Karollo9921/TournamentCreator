@@ -16,7 +16,9 @@
                         <div id="tour">
                             <p>Here is a Tournament <a href="/tournaments/<%=tournament.id%>"><%=tournament.id%></a> and it was created <%=tournament.date%>
                                 <a href="/creator-edit/<%=tournament.id%>" class="button">Edit</a>
-                                <input class="button" type="submit" value="Delete">
+                                <form action="/tournaments/<%=tournament.id%>?_method=DELETE" method="POST">
+                                    <input class="button" type="submit" value="Delete">
+                                </form>
                             </p>
                         </div>
                         <hr>

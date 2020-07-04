@@ -44,7 +44,7 @@ class Tournament {
                     tournaments = JSON.parse(fileContent.toString());  
                 }
                 let newTournaments = tournaments.map((tour) => {
-                    if (tour.id == id) {
+                    if (tour.id === id) {
                         return {
                             id: tour.id,
                             discipline: discipline,
@@ -63,6 +63,25 @@ class Tournament {
                         console.log(err); 
                     }                    
                 });
+                resolve();
+            })
+        })
+    }
+
+    static deleteTour(id) {
+        return new Promise((resolve, reject) => {
+            fs.readFile(p, (err, fileContent) => {
+                let tournaments = [];
+                if (!err) {
+                    tournaments = JSON.parse(fileContent.toString());  
+                }
+                let newTournaments = tournaments.filter((tour) => {return tour.id !== id})
+                fs.writeFile(p, JSON.stringify(newTournaments), (err) => {
+                    if (err) {
+                        console.log(err); 
+                    }                    
+                });
+                console.log(newTournaments);
                 resolve();
             })
         })

@@ -9,7 +9,9 @@
     <div class="container">
         <p>Congratulations! Your <%=title%> Tournament has been created! :)
             <a href="/creator-edit/<%=tournament.id%>" class="button">Edit</a>
-            <input class="button" type="submit" value="Delete" action="/succes-deleted" method="POST">
+            <form action="/tournaments/<%=tournament.id%>?_method=DELETE" method="POST">
+                <input class="button" type="submit" value="Delete">
+            </form>
         </p>    
     </div>
 

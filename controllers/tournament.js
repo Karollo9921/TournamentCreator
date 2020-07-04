@@ -47,8 +47,9 @@ exports.getEditTournament = (req, res, next) => {
 
 exports.putEditTournament = async (req, res, next) => {
     let editedTournaments;
+    console.log(typeof req.params.id);
     try {
-        editedTournaments = await Tournament.editTour(req.params.id, req.body.discipline, req.body.type, req.body.description);
+        editedTournaments = await Tournament.editTour(Number(req.params.id), req.body.discipline, req.body.type, req.body.description);
         console.log(editedTournaments);
         if (editedTournaments == []) {
             res.redirect('/');
@@ -65,7 +66,7 @@ exports.putEditTournament = async (req, res, next) => {
         if (editedTournaments == null) {
             res.redirect('/')
         } else {
-            let tour = tournaments.find((tours) => {return tours.id == req.params.id});
+            let tour = tournaments.find((tours) => {return tours.id === Number(req.params.id)});
             res.render('../views/creator-edit.ejs', {
                 title: "Edit Tournament",
                 id: tour.id,
@@ -78,8 +79,16 @@ exports.putEditTournament = async (req, res, next) => {
       
 };
 
-exports.deleteTournament = (req, res, next) => {
-
+exports.deleteTournament = async (req, res, next) => {
+    let newTournaments;
+    newTournaments = await Tournament.deleteTour(Number(req.params.id));
+    console.log(newTournaments);
+    await Tournament.displayFromJSON((tournaments) => {
+        res.render('../views/home.ejs', {
+            title: "Welcome! :)",
+            tournaments: tournaments
+        })
+    });
 };
 
 
