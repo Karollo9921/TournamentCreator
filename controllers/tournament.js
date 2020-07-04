@@ -53,8 +53,8 @@ exports.putEditTournament = async (req, res, next) => {
         if (editedTournaments == []) {
             res.redirect('/');
         } else {
-            await Tournament.writeData(editedTournaments);
             await Tournament.displayFromJSON((tournaments) => {
+                console.log(tournaments);
                 res.render('../views/home.ejs', {
                     title: "Welcome! :)",
                     tournaments: tournaments
