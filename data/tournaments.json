@@ -1,1 +1,18 @@
-[{"id":1593633002772,"discipline":"piłka nożna","type":"League Tournament","description":"des 2","date":"2020-07-01 21:50:02","lastEdit":"2020-07-04 13:04:32"},{"id":1593633010349,"discipline":"splendor","type":"Bracket Tournament","description":"des 3","date":"2020-07-01 21:50:10","lastEdit":"2020-07-01 21:50:10"}]
+[
+    {
+        "id": 1593873470783,
+        "discipline": "chess",
+        "type": "League Tournament",
+        "description": "des 1",
+        "date": "2020-07-04 16:37:50",
+        "lastEdit": "2020-07-04 19:07:43"
+    },
+    {
+        "id": 1595274589423,
+        "discipline": "tenis",
+        "type": "Bracket Tournament",
+        "description": "des 2",
+        "date": "2020-07-20 21:49:49",
+        "lastEdit": "2020-07-20 21:49:49"
+    }
+]

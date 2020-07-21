@@ -9,8 +9,8 @@ exports.getCreateTournament = (req, res, next) => {
 
 exports.postCreateTournament = (req, res, next) => {
     const tournament = new Tournament(req.body.discipline, req.body.type, req.body.description);
-    tournament.saveToJSON();
-    let id = tournament.id;
+    tournament.saveToMongoDB();
+    let id = tournament._id;
     // console.log(tournaments);
     res.render('../views/success.ejs', {
         title: "SUCCESS ! ;)",
@@ -21,74 +21,80 @@ exports.postCreateTournament = (req, res, next) => {
 
 
 exports.getTournament = (req, res, next) => {
-    Tournament.displayFromJSON((tournaments) => {
-        let tour = tournaments.find((item) => {return item.id == req.params.id});
-        res.render('../views/tournament.ejs', {
-            title: tour.discipline,
-            tournament: tour
-        });        
-    })
+    Tournament.displayFromMongoDB()
+        .then((tournaments) => {
+            let tour = tournaments.find((item) => {return item._id == req.params.id});
+            res.render('../views/tournament.ejs', {
+                title: tour.discipline,
+                tournament: tour
+            });
+        })
+        .catch((err) => {
+            console.log(err);
+        })
 };
 
 
 exports.getEditTournament = (req, res, next) => {
-    Tournament.displayFromJSON((tournaments) => {
-        let tour = tournaments.find((tours) => {return tours.id == req.params.id});
-        res.render('../views/creator-edit.ejs', {
-            title: "Edit Tournament",
-            id: tour.id,
-            discipline: tour.discipline,
-            type: tour.type,
-            description: tour.description
-        });
-    })
-        
-};
-
-exports.putEditTournament = async (req, res, next) => {
-    let editedTournaments;
-    console.log(typeof req.params.id);
-    try {
-        editedTournaments = await Tournament.editTour(Number(req.params.id), req.body.discipline, req.body.type, req.body.description);
-        console.log(editedTournaments);
-        if (editedTournaments == []) {
-            res.redirect('/');
-        } else {
-            await Tournament.displayFromJSON((tournaments) => {
-                console.log(tournaments);
-                res.render('../views/home.ejs', {
-                    title: "Welcome! :)",
-                    tournaments: tournaments
-                })
-            });            
-        }
-    } catch {
-        if (editedTournaments == null) {
-            res.redirect('/')
-        } else {
-            let tour = tournaments.find((tours) => {return tours.id === Number(req.params.id)});
+    Tournament.displayFromMongoDB()
+        .then((tournaments) => {
+            let tour = tournaments.find((tours) => {return tours._id == req.params.id});
             res.render('../views/creator-edit.ejs', {
                 title: "Edit Tournament",
-                id: tour.id,
+                id: tour._id,
                 discipline: tour.discipline,
                 type: tour.type,
                 description: tour.description
             });
-        }
-    }
-      
+        })
+        .catch((err) => {
+            console.log(err);
+        })
 };
 
-exports.deleteTournament = async (req, res, next) => {
-    let newTournaments;
-    newTournaments = await Tournament.deleteTour(Number(req.params.id));
-    console.log(newTournaments);
-    await Tournament.displayFromJSON((tournaments) => {
-        res.render('../views/home.ejs', {
-            title: "Welcome! :)",
-            tournaments: tournaments
+exports.putEditTournament = (req, res, next) => {
+    try {
+        Tournament.editTour(req.params.id, req.body.discipline, req.body.type, req.body.description);
+        Tournament.displayFromMongoDB()
+        .then((tournaments) => {
+            res.render('../views/home.ejs', {
+                title: "Welcome! :)",
+                tournaments: tournaments
+            })
         })
-    });
+        .catch((err) => {
+            console.log(err);
+        });
+    } catch {
+        Tournament.displayFromMongoDB()
+            .then((tournaments) => {
+                let tour = tournaments.find((tours) => {return tours._id == req.params.id});
+                res.render('../views/creator-edit.ejs', {
+                    title: "Edit Tournament",
+                    id: tour._id,
+                    discipline: tour.discipline,
+                    type: tour.type,
+                    description: tour.description
+                });
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
+};
+
+exports.deleteTournament = (req, res, next) => {
+    Tournament.deleteTour(req.params.id);
+    Tournament.displayFromMongoDB()
+        .then(tournaments => {
+            res.render('../views/home.ejs', {
+                title: "Welcome! :)",
+                tournaments: tournaments
+            })
+        })
+        .catch(err => {
+            console.log(err);
+        })
 };
 
 

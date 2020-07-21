@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const mongoConnection = require('./util/database.js').mongoConnect;
 
 const path = require('path');
 const methodOverride = require('method-override');
@@ -17,4 +18,7 @@ app.use('/', creatorRouter);
 app.use('/', tournamentRouter);
 
 
-app.listen(3000);
+mongoConnection(() => {
+    app.listen(3000);
+});
+
