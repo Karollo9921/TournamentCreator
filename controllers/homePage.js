@@ -1,7 +1,7 @@
 const Tournament = require('../models/tournament.js');
 
 exports.getHomePage = (req, res, next) => {
-    Tournament.displayFromMongoDB()
+    Tournament.find()
         .then((tournaments) => {
             res.render('../views/home.ejs', {
                 title: "Welcome! :)",

@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
-const mongoConnection = require('./util/database.js').mongoConnect;
+const mongoose = require('mongoose');
+
 
 const path = require('path');
 const methodOverride = require('method-override');
@@ -18,7 +19,14 @@ app.use('/', creatorRouter);
 app.use('/', tournamentRouter);
 
 
-mongoConnection(() => {
-    app.listen(3000);
+const uri = require('./secret/secret.js');
+
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
+    if (err) {
+        console.log(err);
+    } else {
+        app.listen(3000)
+        console.log('Connected to MongoBD by Mongoose !');
+    }
 });
 
