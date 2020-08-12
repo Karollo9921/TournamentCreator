@@ -26,7 +26,7 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true }, (err)
         console.log(err);
     } else {
         app.listen(3000)
-        console.log('Connected to MongoBD by Mongoose !');
+        console.log('Connected to MongoDB by Mongoose !');
     }
 });
 

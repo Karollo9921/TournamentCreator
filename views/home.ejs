@@ -7,27 +7,34 @@
     
     <%- include('includes/navbar.ejs') %>
     <div class="container">    
-        <p>Welcome to Tournament Creator! :)</p>
-        <div class="tours">
-            <% if (tournaments.length > 0) { %>
-                <% for (let tournament of tournaments.reverse()) { %>
-                    <article id="<%=tournament._id%>">
-                        <hr>
-                        <div id="tour">
-                            <p>Here is a Tournament <a href="/tournaments/<%=tournament._id%>"><%=tournament._id%></a> and it was created <%=tournament.date%>
-                                <a href="/creator-edit/<%=tournament._id%>" class="button">Edit</a>
-                                <form action="/tournaments/<%=tournament._id%>?_method=DELETE" method="POST">
-                                    <input class="button" type="submit" value="Delete">
-                                </form>
-                            </p>
-                        </div>
-                        <hr>
-                    </article>
-                <% } %>
+        <div class="grid">
 
-            <% } else { %>
-                <h1>No Tournaments Found!</h1>
-            <% } %>
+            <div class="landing">
+                <div class="landing_background"></div>
+            </div>
+
+            <div class="tours">
+                <% if (tournaments.length > 0) { %>
+                    <h1 id="last30">Last 30 tournaments created</h1>
+                    <% for (let tournament of tournaments.reverse()) { %>
+                        <div id="<%=tournament._id%>">
+                            <hr>
+                            <div id="tour">
+                                <p>Here is a Tournament <a href="/tournaments/<%=tournament._id%>"><%=tournament._id%></a> and it was created <%=tournament.date%>
+                                    <form action="/tournaments/<%=tournament._id%>?_method=DELETE" method="POST">
+                                        <a href="/creator-edit/<%=tournament._id%>" class="button">Edit</a>
+                                        <input class="button" type="submit" value="Delete">
+                                    </form>
+                                </p>
+                            </div>
+                            <hr>
+                        </div>
+                    <% } %>
+                    
+                <% } else { %>
+                    <h1>No Tournaments Found!</h1>
+                <% } %>
+            </div>
         </div>
     </div>
 
