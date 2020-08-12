@@ -2,7 +2,8 @@ const Tournament = require('../models/tournament.js');
 
 exports.getCreateTournament = (req, res, next) => {
     res.render('../views/creator.ejs', {
-        title: "Create Tournament"
+        title: "Create Tournament",
+        isAuthenticated: req.session.isLoggedIn
     });
 };
 
@@ -18,7 +19,8 @@ exports.postCreateTournament = (req, res, next) => {
     // console.log(tournaments);
     res.render('../views/success.ejs', {
         title: "SUCCESS ! ;)",
-        id: id
+        id: id,
+        isAuthenticated: req.session.isLoggedIn
     });
     return;
 };
@@ -30,7 +32,8 @@ exports.getTournament = (req, res, next) => {
             let tour = tournaments.find((item) => {return item._id == req.params.id});
             res.render('../views/tournament.ejs', {
                 title: tour.discipline,
-                tournament: tour
+                tournament: tour,
+                isAuthenticated: req.session.isLoggedIn
             });
         })
         .catch((err) => {
@@ -48,7 +51,8 @@ exports.getEditTournament = (req, res, next) => {
                 id: tour._id,
                 discipline: tour.discipline,
                 type: tour.type,
-                description: tour.description
+                description: tour.description,
+                isAuthenticated: req.session.isLoggedIn
             });
         })
         .catch((err) => {
@@ -71,7 +75,8 @@ exports.putEditTournament = (req, res, next) => {
     .then((tournaments) => {
         res.render('../views/home.ejs', {
             title: "Welcome! :)",
-            tournaments: tournaments
+            tournaments: tournaments,
+            isAuthenticated: req.session.isLoggedIn
         })
     })
     .catch((err) => {
@@ -85,7 +90,8 @@ exports.deleteTournament = async (req, res, next) => {
         .then(tournaments => {
             res.render('../views/home.ejs', {
                 title: "Welcome! :)",
-                tournaments: tournaments
+                tournaments: tournaments,
+                isAuthenticated: req.session.isLoggedIn
             })
         })
         .catch(err => {

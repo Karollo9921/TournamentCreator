@@ -20,6 +20,22 @@ body {
     color: white;
 }
 
+.logout {
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    color: white;
+    text-decoration: none;
+    padding: 1rem;
+    display: block;
+    border:none;
+    margin-top: 0.15rem;
+}
+
+.logout:hover {
+    background-color: #555;
+}
+
 .navbar-title {
     font-size: 1.5rem;
     margin: .5rem

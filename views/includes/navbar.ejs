@@ -7,8 +7,18 @@
     </a>
     <div class="navbar-links">
         <ul>
+            <% if (isAuthenticated) { %>
             <li><a href='/'>Home</a></li>
             <li><a href='/creator'>Create</a></li>
+            <li>
+                <form action="/logout" method="post">
+                    <button class="logout" type="submit">Logout</button>
+                </form>
+            </li>
+            <% } else { %>
+            <li><a href='/register'>Register</a></li>  
+            <li><a href='/login'>Login</a></li>
+            <% } %>
         </ul>
     </div>
 </nav>

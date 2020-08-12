@@ -5,7 +5,8 @@ exports.getHomePage = (req, res, next) => {
         .then((tournaments) => {
             res.render('../views/home.ejs', {
                 title: "Welcome! :)",
-                tournaments: tournaments
+                tournaments: tournaments,
+                isAuthenticated: req.session.isLoggedIn
             })
         })
         .catch((err) => {
