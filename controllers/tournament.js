@@ -1,6 +1,9 @@
 const Tournament = require('../models/tournament.js');
 
 exports.getCreateTournament = (req, res, next) => {
+    if (!req.session.isLoggedIn) {
+        return res.redirect('/login');
+    }
     res.render('../views/creator.ejs', {
         title: "Create Tournament",
         isAuthenticated: req.session.isLoggedIn
@@ -9,6 +12,9 @@ exports.getCreateTournament = (req, res, next) => {
 
 
 exports.postCreateTournament = (req, res, next) => {
+    if (!req.session.isLoggedIn) {
+        return res.redirect('/login');
+    }
     const tournament = new Tournament({
         discipline: req.body.discipline,
         type: req.body.type, 
@@ -27,6 +33,9 @@ exports.postCreateTournament = (req, res, next) => {
 
 
 exports.getTournament = (req, res, next) => {
+    if (!req.session.isLoggedIn) {
+        return res.redirect('/login');
+    }
     Tournament.find()
         .then((tournaments) => {
             let tour = tournaments.find((item) => {return item._id == req.params.id});
@@ -43,6 +52,9 @@ exports.getTournament = (req, res, next) => {
 
 
 exports.getEditTournament = (req, res, next) => {
+    if (!req.session.isLoggedIn) {
+        return res.redirect('/login');
+    }
     Tournament.find()
         .then((tournaments) => {
             let tour = tournaments.find((tours) => {return tours._id == req.params.id});
@@ -61,6 +73,9 @@ exports.getEditTournament = (req, res, next) => {
 };
 
 exports.putEditTournament = (req, res, next) => {
+    if (!req.session.isLoggedIn) {
+        return res.redirect('/login');
+    }
     const tourId = req.params.id;
     Tournament.findById(tourId)
         .then(tour => {
@@ -85,6 +100,9 @@ exports.putEditTournament = (req, res, next) => {
 };
 
 exports.deleteTournament = async (req, res, next) => {
+    if (!req.session.isLoggedIn) {
+        return res.redirect('/login');
+    }
     await Tournament.findByIdAndDelete(req.params.id);
     await Tournament.find()
         .then(tournaments => {

@@ -7,16 +7,24 @@
 <body>
 
     <main>
-        <form class = "login" action="/login" method="POST">
+        <form class = "login" action="/signup" method="POST">
             <div>
-                <label for="login">Login/Email</label><br>
+                <label for="email">Email</label><br>
+                <input type="email" name="email" id="email"><br>
+            </div><br>
+            <div>
+                <label for="login">Login</label><br>
                 <input type="login" name="login" id="login"><br>
             </div><br>
             <div>
                 <label for="password">Password</label><br>
                 <input type="password" name="password" id="password">
             </div><br>
-            <button class="login-btn" type="submit">Login</button> 
+            <div>
+              <label for="password2">Confirm Password</label><br>
+              <input type="password" name="password2" id="password2">
+          </div><br>
+            <button class="login-btn" type="submit">Signup</button> 
         </form>
     </main>
 
