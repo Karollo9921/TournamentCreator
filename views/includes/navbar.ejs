@@ -8,6 +8,7 @@
     <div class="navbar-links">
         <ul>
             <% if (isAuthenticated) { %>
+            <li><a href="/users/<%=loggedUser._id%>">My Profile</a></li>
             <li><a href='/'>Home</a></li>
             <li><a href='/creator'>Create</a></li>
             <li>
@@ -16,6 +17,7 @@
                 </form>
             </li>
             <% } else { %>
+            <li><a href='/'>Home</a></li>
             <li><a href='/signup'>Signup</a></li>  
             <li><a href='/login'>Login</a></li>
             <% } %>

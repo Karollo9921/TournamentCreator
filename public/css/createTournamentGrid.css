@@ -1,0 +1,20 @@
+.grid {
+  display: grid; /* css będzie rozumiał tego diva jako grida */
+  grid-template-columns: 33% 33% 33%;
+}
+
+.tournament-features {
+
+}
+
+.tournament-users {
+  display: grid;
+  margin: 0;
+  justify-content: top;
+}
+
+.selected-users {
+  display: grid;
+  margin: 0;
+  justify-content: top;
+}

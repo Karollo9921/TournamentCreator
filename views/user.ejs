@@ -1,0 +1,27 @@
+<%- include('includes/start.ejs') %>
+
+<link rel="stylesheet" href="/css/user.css">
+<title><%=title%></title>
+</head>
+<body>
+
+    <%- include('includes/navbar.ejs') %>
+    <div class="container">
+        <table style="width:100%">
+            <tr>
+              <th>Login:</th>
+              <td><%= user.login %></td>
+            </tr>
+            <tr>
+              <th>Date of joining:</th>
+              <td><%= user.dateOfJoin %></td>
+            </tr>
+            <tr>
+                <th>Created Tournaments:</th>
+                <td><%= user.createdTournaments %></td>
+            </tr>
+          </table>
+    </div>
+
+
+<%- include('includes/end.ejs') %>

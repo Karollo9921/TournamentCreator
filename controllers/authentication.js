@@ -5,14 +5,16 @@ const bcrypt = require('bcryptjs');
 exports.getLogin = (req, res, next) => {
   res.render('authentication/login', {
     title: 'Login',
-    isAuthenticated: req.session.isLoggedIn
+    isAuthenticated: req.session.isLoggedIn,
+    user: req.session.user
   });
 };
 
 exports.getSignup = (req, res, next) => {
   res.render('authentication/signup', {
     title: 'Signup',
-    isAuthenticated: req.session.isLoggedIn
+    isAuthenticated: req.session.isLoggedIn,
+    user: req.session.user
   });
 };
 

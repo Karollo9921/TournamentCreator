@@ -1,12 +1,18 @@
 const Tournament = require('../models/tournament.js');
+const User = require('../models/user.js');
 
 exports.getCreateTournament = (req, res, next) => {
     if (!req.session.isLoggedIn) {
         return res.redirect('/login');
     }
-    res.render('../views/creator.ejs', {
-        title: "Create Tournament",
-        isAuthenticated: req.session.isLoggedIn
+    User.find({}).exec((err, users) => {   
+        if (err) throw err;
+        res.render('../views/creator.ejs', { 
+            title: "Create Tournament",
+            isAuthenticated: req.session.isLoggedIn,
+            users: users,
+            loggedUser: req.session.user 
+        });
     });
 };
 
@@ -26,7 +32,8 @@ exports.postCreateTournament = (req, res, next) => {
     res.render('../views/success.ejs', {
         title: "SUCCESS ! ;)",
         id: id,
-        isAuthenticated: req.session.isLoggedIn
+        isAuthenticated: req.session.isLoggedIn,
+        loggedUser: req.session.user
     });
     return;
 };
@@ -42,7 +49,8 @@ exports.getTournament = (req, res, next) => {
             res.render('../views/tournament.ejs', {
                 title: tour.discipline,
                 tournament: tour,
-                isAuthenticated: req.session.isLoggedIn
+                isAuthenticated: req.session.isLoggedIn,
+                loggedUser: req.session.user
             });
         })
         .catch((err) => {
@@ -64,7 +72,8 @@ exports.getEditTournament = (req, res, next) => {
                 discipline: tour.discipline,
                 type: tour.type,
                 description: tour.description,
-                isAuthenticated: req.session.isLoggedIn
+                isAuthenticated: req.session.isLoggedIn,
+                loggedUser: req.session.user
             });
         })
         .catch((err) => {
@@ -91,7 +100,8 @@ exports.putEditTournament = (req, res, next) => {
         res.render('../views/home.ejs', {
             title: "Welcome! :)",
             tournaments: tournaments,
-            isAuthenticated: req.session.isLoggedIn
+            isAuthenticated: req.session.isLoggedIn,
+            loggedUser: req.session.user
         })
     })
     .catch((err) => {
@@ -109,7 +119,8 @@ exports.deleteTournament = async (req, res, next) => {
             res.render('../views/home.ejs', {
                 title: "Welcome! :)",
                 tournaments: tournaments,
-                isAuthenticated: req.session.isLoggedIn
+                isAuthenticated: req.session.isLoggedIn,
+                loggedUser: req.session.user
             })
         })
         .catch(err => {

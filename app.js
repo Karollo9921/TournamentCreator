@@ -18,6 +18,7 @@ const homeRouter = require('.//routes/home.js');
 const creatorRouter = require('.//routes/creator.js');
 const tournamentRouter = require('.//routes/tournament.js');
 const authRouter = require('./routes/authentication.js');
+const userRouter = require('./routes/user.js');
 
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
@@ -36,6 +37,8 @@ app.use('/', homeRouter);
 app.use('/', creatorRouter);
 app.use('/', tournamentRouter);
 app.use('/', authRouter);
+app.use('/', userRouter);
+
 
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
     if (err) {
