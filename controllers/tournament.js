@@ -1,5 +1,6 @@
 const Tournament = require('../models/tournament.js');
 const User = require('../models/user.js');
+ObjectId = require('mongodb').ObjectID;
 
 exports.getCreateTournament = (req, res, next) => {
     if (!req.session.isLoggedIn) {
@@ -17,17 +18,35 @@ exports.getCreateTournament = (req, res, next) => {
 };
 
 
-exports.postCreateTournament = (req, res, next) => {
+exports.postCreateTournament = async (req, res, next) => {
     if (!req.session.isLoggedIn) {
         return res.redirect('/login');
     }
     const tournament = new Tournament({
         discipline: req.body.discipline,
-        type: req.body.type, 
-        description: req.body.description
+        type: req.body.type,
+        description: req.body.description,
+        author: req.session.user._id,
+        players: await Promise.all(req.body.usersLogins.map(async userLogin => {
+                    try {
+                        const user = await User.find({ login: userLogin });
+                        return ObjectId(user[0]._id);
+                    } catch (err) {
+                        console.log(err);
+                    }
+                    })
+                )
     });
-    tournament.save();
+    await tournament.save();
     let id = tournament._id;
+    User.findById(req.session.user._id)
+        .then(user => {
+            user.createdTournaments.push(id);
+            return user.save();
+        })
+        .catch(err => {
+            console.log(err);
+        })
     // console.log(tournaments);
     res.render('../views/success.ejs', {
         title: "SUCCESS ! ;)",
@@ -44,13 +63,17 @@ exports.getTournament = (req, res, next) => {
         return res.redirect('/login');
     }
     Tournament.find()
+        .populate('players')
+        .populate('author')
         .then((tournaments) => {
             let tour = tournaments.find((item) => {return item._id == req.params.id});
             res.render('../views/tournament.ejs', {
                 title: tour.discipline,
                 tournament: tour,
                 isAuthenticated: req.session.isLoggedIn,
-                loggedUser: req.session.user
+                loggedUser: req.session.user,
+                players: tour.players,
+                author: tour.author
             });
         })
         .catch((err) => {

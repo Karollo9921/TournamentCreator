@@ -22,7 +22,19 @@ const tournamentSchema = new mongoose.Schema({
     lastEdit: {
         type: String,
         default: null
-    }
+    },
+    author: {
+        type: Schema.Types.ObjectId, 
+        ref: 'User', 
+        required: true 
+    },
+    players: [
+        {
+            type: Schema.Types.ObjectId, 
+            ref: 'User', 
+            required: true 
+        }
+    ]
  });
  
  module.exports = mongoose.model('Tournament', tournamentSchema);

@@ -4,16 +4,26 @@
 <title><%=title%></title>
 </head>
 <body>
-
     <%- include('includes/navbar.ejs') %>
     <div class="container">
-        <p>Congratulations! Your <%=title%> Tournament has been created! :)
+        <p>Congratulations! Your <%=title%> Tournament has been created! Tournament created by <a href="/users/<%=author._id%>"><%=author.login%></a> :)
             <a href="/creator-edit/<%=tournament._id%>" class="button">Edit</a>
             <form action="/tournaments/<%=tournament._id%>?_method=DELETE" method="POST">
                 <input class="button" type="submit" value="Delete">
             </form>
         </p>    
     </div>
+    <% if (players.length > 0) { %>
+    <div>
+        <ul>
+            <% for (let player of players) { %>
+                <li><%=player.login%></li>
+            <% } %>
+        </ul>
+    </div>    
+    <% } else { %>
+        <h2>No players here!</h2>
+    <% } %>
 
 
 <%- include('includes/end.ejs') %>

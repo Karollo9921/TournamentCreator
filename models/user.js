@@ -19,16 +19,13 @@ const userSchema = new mongoose.Schema({
     default: new Date(new Date().toString().split('GMT')[0]+' UTC').toISOString().split('T')[0] + ' '
             + new Date(new Date().toString().split('GMT')[0]+' UTC').toISOString().split('T')[1].slice(0,8)
   },  
-  createdTournaments: {
-    tours: [
+  createdTournaments: [
       {
         type: Schema.Types.ObjectId,
         ref: 'Tournament',
         required: true
       }
     ]
-  }
-
 });
 
 module.exports = mongoose.model('User', userSchema);

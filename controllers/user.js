@@ -6,6 +6,7 @@ exports.getUser = (req, res, next) => {
         return res.redirect('/login');
     }
     User.find()
+      .populate('createdTournaments')
       .then((users) => {
         let user = users.find((user) => {return user._id == req.params.id});
         res.render('../views/user.ejs', {

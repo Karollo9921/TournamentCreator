@@ -9,10 +9,10 @@
     <div class="container">
     <p>Here you can create your Tournament!</p>
 
-
-    <div class="grid">
-      <div class="tournament-features">
-        <form class="form" action="/creator" method="POST">
+    <form class="form" action="/creator" method="POST">
+      <div class="grid">
+        <div class="tournament-features">
+        
           <label>Discypline:</label><br>
           <input type="text" name="discipline" placeholder="E.G. Chess"><br><br>
           <label for="lname">Tournament type:</label><br>
@@ -23,15 +23,15 @@
           <label>Description of Tournament:</label><br>
           <textarea name="description" rows="4" cols="50"></textarea><br><br>
           <input class="button" type="submit" value="Create"><br>
-        </form>
+        
       </div>
         
       <div class="selected-users">
         <h3>Added Users:</h3>
-        <ul class="selected-users-list">
+        <ul class="selected-users-list" name="user">
         </ul>
       </div>
-
+    </form>
       <div class="container2">
         <div class="tournament-users">
           <h3>Users to add</h3>
@@ -41,12 +41,12 @@
               <% for ( let user of users ) { %>
                 <div class="option">
                   <input type="radio" class="radio" name="user">
-                  <label for="<%= user.login %>" id="<%= user._id %>"><%= user.login %></label>
+                  <label class="user-login" for="<%= user.login %>" id="<%= user._id %>"><%= user.login %></label>
                 </div>
               <% } %>
             </div>
             <div class="selected">
-              <input type="text" placeholder="Select User">
+              <input class="find-user" type="text" placeholder="Select User">
             </div>
           </div>
         </div>

@@ -17,8 +17,12 @@
               <td><%= user.dateOfJoin %></td>
             </tr>
             <tr>
-                <th>Created Tournaments:</th>
-                <td><%= user.createdTournaments %></td>
+              <th>Created Tournaments:</th>
+              <td>
+                <% for (let tour of user.createdTournaments) { %>
+                  <a href="/tournaments/<%= tour._id %>"><%= tour._id %></a>
+                <% } %>
+              </td>
             </tr>
           </table>
     </div>
